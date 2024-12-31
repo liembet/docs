@@ -33,6 +33,11 @@
     }
   ],
   "anchors": [
+    {
+      "name": "API Reference",
+      "icon": "code",
+      "url": "api-reference"
+    }
   ],
   "navigation": [
     {
