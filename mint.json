@@ -40,12 +40,7 @@
       "pages": [
         "introduction",
         "quickstart",
-        "development",
-        {
-          "name": "API Reference",
-          "icon": "code",
-          "url": "api-reference"
-        }
+        "development"
       ]
     },
     {
