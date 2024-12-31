@@ -33,11 +33,6 @@
     }
   ],
   "anchors": [
-    {
-      "name": "API Reference",
-      "icon": "code",
-      "url": "api-reference"
-    }
   ],
   "navigation": [
     {
@@ -45,7 +40,12 @@
       "pages": [
         "introduction",
         "quickstart",
-        "development"
+        "development",
+        {
+          "name": "API Reference",
+          "icon": "code",
+          "url": "api-reference"
+        }
       ]
     },
     {
