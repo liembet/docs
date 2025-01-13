@@ -2478,6 +2478,8 @@ paths:
                     example: Internal Server Error
   /points/{address}:
     get:
+      security:
+        - apiKeyAuth: []
       summary: Get points for an address
       description: Returns the points and related data for a given address, including total points, market data, and point market listings
       tags:
