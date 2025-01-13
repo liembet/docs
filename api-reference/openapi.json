@@ -884,9 +884,6 @@ components:
                   type: number
                 maxTvl:
                   type: number
-security:
-  - apiKeyAuth:
-      - demo-123
 paths:
   /v2/address/{address}/dids:
     get:
@@ -1711,6 +1708,7 @@ paths:
           schema:
             type: string
           description: The chain of the vault
+          example: SUI
       responses:
         '200':
           description: Historical APY data
