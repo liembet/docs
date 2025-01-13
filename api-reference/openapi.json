@@ -22,6 +22,7 @@ components:
       type: apiKey
       in: header
       name: x-api-key
+      description: 'API key for authentication. Trial key: trial-0a620a64-975b-4f45-a73f-9d363200c92e'
   schemas:
     User:
       type: object
@@ -884,7 +885,8 @@ components:
                 maxTvl:
                   type: number
 security:
-  - apiKeyAuth: []
+  - apiKeyAuth:
+      - demo-123
 paths:
   /v2/address/{address}/dids:
     get:
