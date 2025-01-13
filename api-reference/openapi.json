@@ -1,1 +1,2573 @@
-{"openapi":"3.0.0","info":{"title":"Nimbus API","version":"1.0.0","description":"API for Nimbus\n\n## Rate Limiting\nThis API implements rate limiting to ensure fair usage and protect our services. The current rate limit is:\n\n- **500 requests per 10 minutes** per IP address\n\nIf you exceed this limit, you will receive a 429 (Too Many Requests) response. Please wait for the rate limit window to reset before making additional requests.\n\nIf you need more, please contact us at **thanhle@getnimbus.io** or TG **@thanhle27** to get premium API Key."},"servers":[{"url":"https://api.getnimbus.io","description":"API server"}],"components":{"securitySchemes":{"apiKeyAuth":{"type":"apiKey","in":"header","name":"x-api-key"}},"schemas":{"User":{"type":"object","properties":{"id":{"type":"string"},"publicAddress":{"type":"string"},"displayName":{"type":"string","nullable":true},"email":{"type":"string","nullable":true},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time","nullable":true},"lastLogin":{"type":"string","format":"date-time","nullable":true}}},"NativeToken":{"type":"object","properties":{"name":{"type":"string"},"cmcId":{"type":"number"},"cmc_slug":{"type":"string"},"cgId":{"type":"string"},"symbol":{"type":"string"},"decimals":{"type":"number"}}},"NFTCollection":{"type":"object","properties":{"description":{"type":"string"},"externalUrl":{"type":"string"},"id":{"type":"string"},"imageUrl":{"type":"string"},"name":{"type":"string"},"totalItems":{"type":"number"},"chain":{"type":"string"},"verified":{"type":"boolean"},"scam":{"type":"boolean"}}},"NFTToken":{"type":"object","properties":{"royalty":{"type":"number"},"imageUrl":{"type":"string"},"tokenId":{"type":"string"},"contractAddress":{"type":"string"},"name":{"type":"string"},"rarityScore":{"type":"number"},"rank":{"type":"string"},"price":{"type":"number"},"cost":{"type":"number"}}},"NFTProfit":{"type":"object","properties":{"realizedPnL":{"type":"number"},"unrealizedPnL":{"type":"number"}}},"NFTHolding":{"type":"object","properties":{"owner":{"type":"string","description":"The owner address of the NFTs"},"nativeToken":{"$ref":"#/components/schemas/NativeToken"},"collection":{"$ref":"#/components/schemas/NFTCollection"},"collectionId":{"type":"string"},"tokens":{"type":"array","items":{"$ref":"#/components/schemas/NFTToken"}},"floorPrice":{"type":"number"},"marketPrice":{"type":"number"},"profit":{"$ref":"#/components/schemas/NFTProfit"}}},"TokenInfo":{"type":"object","required":["contract_address","decimals","name","symbol","logo"],"properties":{"contract_address":{"type":"string","example":"0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"},"timestamp":{"type":"number","example":1732681440},"price":{"type":"number","example":0.38829430763915},"last24hPrice":{"type":"number","example":0.2},"poolId":{"type":"string","example":"lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI"},"decimals":{"type":"number","example":9},"name":{"type":"string","example":"Scallop"},"symbol":{"type":"string","example":"SCA"},"source":{"type":"string","example":"Nimbus"},"logo":{"type":"string","example":"https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI"}}},"TokenPosition":{"type":"object","required":["amount","value","token"],"properties":{"amount":{"type":"number","example":230.1003476015875},"value":{"type":"number","example":89.34665515948616},"token":{"$ref":"#/components/schemas/TokenInfo"}}},"ProtocolMeta":{"type":"object","properties":{"name":{"type":"string","example":"Scallop"},"logo":{"type":"string","example":"https://strapi-dev.scand.app/uploads/Scallop_e86ded6cf4.jpg"},"url":{"type":"string","example":"https://scallop.io/"},"protocol":{"type":"string","example":"Scallop"}}},"FarmingInfo":{"type":"object","properties":{"base_apr":{"type":"number","example":10},"rewards_apr":{"type":"number","example":20},"total_apr":{"type":"number","example":30},"total_apy":{"type":"number","example":40},"rewards":{"nullable":true,"type":"array","items":{"type":"object","properties":{"token_address":{"type":"string","example":"0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"},"logo":{"type":"string","example":"https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI"},"token_name":{"type":"string","example":"Scallop"},"token_symbol":{"type":"string","example":"SCA"},"token_decimals":{"type":"number","example":9}}}}}},"FarmPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262"},"poolId":{"type":"string","example":"0x123...abc"},"type":{"type":"string","enum":["Farm"],"example":"Farm"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"claimed":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"fee":{"type":"object","properties":{"amount":{"type":"number","example":0},"token":{"$ref":"#/components/schemas/TokenInfo"}}},"healthy":{"type":"number","example":1.5}}},"tags":{"type":"array","items":{"type":"string"},"example":["Boosted"]},"chain":{"type":"string","example":"SUI"},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"StakingPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}}}},"fee":{"type":"number","example":0},"chain":{"type":"string","example":"SUI"},"type":{"type":"string","enum":["Staking"],"example":"Staking"},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"NativeStakingPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0xb8068ad94d7f0448059ae3ea1d877f2af54792b2849d80e2753201adfa532411"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"validatorInfo":{"type":"object","properties":{"name":{"type":"string","nullable":true,"example":"Suiet"},"logo":{"type":"string","nullable":true,"example":"https://assets.suiet.app/logo.png"}}}}},"fee":{"type":"number","example":0},"chain":{"type":"string","example":"SUI"},"type":{"type":"string","enum":["NativeStaking"],"example":"NativeStaking"},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"VestPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0xb8068ad94d7f0448059ae3ea1d877f2af54792b2849d80e2753201adfa532411"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"endDate":{"type":"string","nullable":true,"example":"2024-12-08T00:00:00.000Z"}}},"fee":{"type":"number","example":0},"chain":{"type":"string","example":"SUI"},"type":{"type":"string","enum":["Vest"],"example":"Vest"},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"LendingPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}}}},"fee":{"type":"object","properties":{"value":{"type":"number","example":0}}},"chain":{"type":"string","enum":["SUI"],"example":"SUI"},"type":{"type":"string","enum":["Lending"],"example":"Lending"},"tags":{"type":"array","items":{"type":"string"},"example":["Boosted"]},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"AMMPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0xe680066288f8ae8120ff9b5a7accfede974cdfdb07bae9a38b43ee3edf505a7e"},"owner":{"type":"string","example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}}}},"fee":{"type":"object","properties":{"value":{"type":"number","example":0}}},"tags":{"type":"array","items":{"type":"string"},"example":["Farming"]},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"chain":{"type":"string","enum":["SUI"],"example":"SUI"},"type":{"type":"string","enum":["AMM"],"example":"AMM"},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"CLMMPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0x4f551b64b0a7df43626ac93962c4eb67a58c29b0336ce166c739aee0bd717ddc"},"owner":{"type":"string","example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e"},"input":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"currentPrice":{"type":"string","example":"1504.79"},"lowerPrice":{"type":"string","example":"0.000000000000000054516"},"upperPrice":{"type":"string","example":"18343046657752086085365.35"},"isInRange":{"type":"boolean","example":true},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}}}},"chain":{"type":"string","enum":["SUI"],"example":"SUI"},"type":{"type":"string","enum":["CLMM"],"example":"CLMM"},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"BorrowPosition":{"type":"object","properties":{"positionId":{"type":"string","example":"0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262"},"owner":{"type":"string","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"poolId":{"type":"string","example":"0x123...abc"},"input":{"type":"array","items":{"oneOf":[{"$ref":"#/components/schemas/TokenPosition"},{"$ref":"#/components/schemas/LendingPosition"}]}},"yieldCollected":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"current":{"type":"object","properties":{"tokens":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"yield":{"type":"array","items":{"$ref":"#/components/schemas/TokenPosition"}},"healthy":{"type":"number","example":1.5}}},"fee":{"type":"object","properties":{"value":{"type":"number","example":0}}},"chain":{"type":"string","example":"SUI"},"type":{"type":"string","enum":["Borrow"],"example":"Borrow"},"tags":{"type":"array","items":{"type":"string"},"example":["Boosted"]},"farming":{"type":"array","items":{"$ref":"#/components/schemas/FarmingInfo"}},"meta":{"type":"object","properties":{"protocol":{"$ref":"#/components/schemas/ProtocolMeta"}}}}},"Webhook":{"type":"object","properties":{"id":{"type":"string","description":"The unique identifier for the webhook"},"owner":{"type":"string","description":"The API key of the webhook owner"},"url":{"type":"string","description":"The URL to which webhook events will be sent"},"addresses":{"type":"array","items":{"type":"string"},"description":"List of addresses being monitored by this webhook"},"chain":{"type":"string","description":"The blockchain chain associated with this webhook","default":"SUI"},"createdAt":{"type":"string","format":"date-time","description":"The date and time when the webhook was created"},"updatedAt":{"type":"string","format":"date-time","description":"The date and time when the webhook was last updated"}},"required":["owner","url","addresses"]},"SimulationResult":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"date":{"type":"string","format":"date-time"},"value":{"type":"number","description":"Value of the investment"}}}},"il":{"type":"number","description":"Impermanent loss percentage"},"ilAmount":{"type":"number","description":"Impermanent loss amount"}}},"DefiVault":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"chain":{"type":"string"},"protocol":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"}}},"type":{"type":"string","enum":["LP","VAULT","STAKING","LENDING"]},"apr":{"type":"number","description":"Base APR"},"apy":{"type":"number","description":"Base APY"},"apr_rewards":{"type":"number","description":"Bonus APR rewards"},"totalApr":{"type":"number","description":"Total APR = base_apr + apr_rewards"},"totalApy":{"type":"number"},"tvl":{"type":"number"},"coins":{"type":"array","items":{"type":"string"},"description":"The list of tokens in pool/vault"},"rewards":{"type":"object","properties":{"tokens":{"type":"array","items":{"type":"object","properties":{"token_address":{"type":"string"},"token_name":{"type":"string"},"token_symbol":{"type":"string"},"logo":{"type":"string"}}},"description":"The list of reward tokens"}}},"farmLink":{"type":"string"},"label":{"type":"array","items":{"type":"string"}},"logo":{"type":"string"},"stats":{"type":"object","properties":{"7d":{"type":"object","properties":{"minApr":{"type":"number"},"maxApr":{"type":"number"},"minApy":{"type":"number"},"maxApy":{"type":"number"},"minBaseApr":{"type":"number"},"maxBaseApr":{"type":"number"},"minRewardsApr":{"type":"number"},"maxRewardsApr":{"type":"number"},"minBaseApy":{"type":"number"},"maxBaseApy":{"type":"number"},"minRewardsApy":{"type":"number"},"maxRewardsApy":{"type":"number"},"minTvl":{"type":"number"},"maxTvl":{"type":"number"}}},"30d":{"type":"object","properties":{"minApr":{"type":"number"},"maxApr":{"type":"number"},"minApy":{"type":"number"},"maxApy":{"type":"number"},"minBaseApr":{"type":"number"},"maxBaseApr":{"type":"number"},"minRewardsApr":{"type":"number"},"maxRewardsApr":{"type":"number"},"minBaseApy":{"type":"number"},"maxBaseApy":{"type":"number"},"minRewardsApy":{"type":"number"},"maxRewardsApy":{"type":"number"},"minTvl":{"type":"number"},"maxTvl":{"type":"number"}}}}}}}}},"security":[{"apiKeyAuth":[]}],"paths":{"/v2/address/{address}/dids":{"get":{"summary":"Get DIDs for an address","description":"Retrieves Decentralized Identifier (DID) associated with an address. Currently supports SUI Name Service (SNS) for Sui addresses and domain TLDs for SOL addresses.","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x1aadcafd7750f479eb0ac0fbcc4cade7b4de8205","description":"The blockchain address to query DID accounts for"}],"responses":{"200":{"description":"Successfully retrieved DID accounts","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"object","properties":{"address":{"type":"string","description":"Wallet address","example":"0x123...abc"},"data":{"type":"array","description":"List of name services associated with the address","items":{"type":"string"},"example":["example.sui","test.sol"]}}}}}}}},"400":{"description":"Invalid address provided"},"500":{"description":"Internal server error"}}}},"/v2/address/{address}/nft-holding":{"get":{"summary":"Get NFT holding information for an address","description":"Retrieves NFT holding information for a given address, including collection details and token information","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to get NFT holding information for"},{"in":"query","name":"chain","schema":{"type":"string","enum":["BTC","SOL","SUI","TON","ETH","FANTOM","RON","BNB","OP","AVAX","MATIC","ARB","BASE","SCROLL","ZKSYNC","ALL"]},"description":"The blockchain to query (default is \"ALL\")"},{"in":"query","name":"includePnl","schema":{"type":"boolean","default":false},"description":"Include profit and loss information"}],"responses":{"200":{"description":"Successful response with NFT holding information","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/NFTHolding"}}}}},"400":{"description":"Invalid address provided"},"401":{"description":"Unauthorized access for bundle addresses without owner"},"500":{"description":"Internal server error"}}}},"/v2/address/{address}/holding":{"get":{"summary":"Get holding information for an address","description":"Retrieves holding information for a given address, including token balances and their values","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to get holding information for"},{"in":"query","name":"chain","schema":{"type":"string","enum":["BTC","SOL","SUI","TON","ETH","FANTOM","RON","BNB","OP","AVAX","MATIC","ARB","BASE","SCROLL","ZKSYNC","ALL"]},"description":"The blockchain to query (default is \"ALL\")"},{"in":"query","name":"force_refresh","schema":{"type":"boolean"},"description":"Force a refresh of the data instead of using cached results"},{"in":"query","name":"includePnl","schema":{"type":"boolean","default":false},"description":"Include profit and loss information (default is false)"}],"responses":{"200":{"description":"Successful response with paginated holding information","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"owner":{"type":"string","description":"The owner's address","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"name":{"type":"string","description":"Token name","example":"suirwd.io - Sui Reward Token"},"symbol":{"type":"string","description":"Token symbol","example":"SUIRWD.IO"},"logo":{"type":"string","description":"URL to token logo","example":"https://suicamp.b-cdn.net/suireward/suirwd_icon.png"},"amount":{"type":"string","description":"Formatted token amount","example":"9683.2"},"amountRaw":{"type":"string","description":"Raw token amount","example":"9683200000000"},"balance":{"type":"string","description":"Token balance","example":"9683.2"},"contractAddress":{"type":"string","description":"Token contract address","example":"0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD"},"contractDecimals":{"type":"integer","description":"Token decimals","example":9},"rate":{"type":"number","description":"Token rate","example":0},"price":{"type":"object","properties":{"price":{"type":"number","example":0},"symbol":{"type":"string","example":"SUIRWD.IO"},"decimal":{"type":"integer","example":9},"source":{"type":"string","example":"C"}}},"last_24h_price":{"type":"string","format":"date-time","nullable":true,"description":"Price change in last 24 hours"},"avgCost":{"type":"number","description":"Average cost of token","example":0},"last_transferred_at":{"type":"string","format":"date-time","nullable":true,"description":"Timestamp of last transfer"},"positionId":{"type":"string","description":"Unique position identifier","example":"SUI-0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD"},"category":{"type":"string","description":"Token category","example":"Other"},"sector":{"type":"string","description":"Token sector","example":"Other"},"rank":{"type":"string","description":"Token rank","example":"No rank yet"},"positionType":{"type":"string","description":"Type of position","example":"token"},"chain":{"type":"string","description":"Blockchain network","example":"SUI"},"is_spam":{"type":"boolean","description":"Whether token is marked as spam","example":true}}}}}}}}},"400":{"description":"Invalid address provided"},"401":{"description":"Unauthorized access for CEX addresses without owner"},"500":{"description":"Internal server error"}}}},"/v3/address/{address}/holding":{"get":{"summary":"Get paginated holding information for an address","description":"Retrieves paginated holding information for a given address, including token balances and their values","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"Wallet address to get holding info"},{"in":"query","name":"chain","schema":{"type":"string","enum":["SUI"],"default":"SUI"},"description":"The blockchain to query"},{"in":"query","name":"force_refresh","schema":{"type":"boolean"},"description":"Force a refresh of the data instead of using cached results"},{"in":"query","name":"includePnl","schema":{"type":"boolean","default":false},"description":"Include profit and loss information (default is false)"},{"in":"query","name":"limit","schema":{"type":"integer","minimum":1,"maximum":500,"default":500},"description":"Number of results per page"},{"in":"query","name":"offset","schema":{"type":"integer","minimum":0,"default":0},"description":"Number of results to skip"}],"responses":{"200":{"description":"Successful response with paginated holding information","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"owner":{"type":"string","description":"The owner's address","example":"0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7"},"name":{"type":"string","description":"Token name","example":"suirwd.io - Sui Reward Token"},"symbol":{"type":"string","description":"Token symbol","example":"SUIRWD.IO"},"logo":{"type":"string","description":"URL to token logo","example":"https://suicamp.b-cdn.net/suireward/suirwd_icon.png"},"amount":{"type":"string","description":"Formatted token amount","example":"9683.2"},"amountRaw":{"type":"string","description":"Raw token amount","example":"9683200000000"},"balance":{"type":"string","description":"Token balance","example":"9683.2"},"contractAddress":{"type":"string","description":"Token contract address","example":"0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD"},"contractDecimals":{"type":"integer","description":"Token decimals","example":9},"rate":{"type":"number","description":"Token rate","example":0},"price":{"type":"object","properties":{"price":{"type":"number","example":0},"symbol":{"type":"string","example":"SUIRWD.IO"},"decimal":{"type":"integer","example":9},"source":{"type":"string","example":"C"}}},"last_24h_price":{"type":"string","format":"date-time","nullable":true,"description":"Price change in last 24 hours"},"avgCost":{"type":"number","description":"Average cost of token","example":0},"last_transferred_at":{"type":"string","format":"date-time","nullable":true,"description":"Timestamp of last transfer"},"positionId":{"type":"string","description":"Unique position identifier","example":"SUI-0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD"},"category":{"type":"string","description":"Token category","example":"Other"},"sector":{"type":"string","description":"Token sector","example":"Other"},"rank":{"type":"string","description":"Token rank","example":"No rank yet"},"positionType":{"type":"string","description":"Type of position","example":"token"},"chain":{"type":"string","description":"Blockchain network","example":"SUI"},"is_spam":{"type":"boolean","description":"Whether token is marked as spam","example":true}}}}}}}}},"400":{"description":"Invalid address provided or non-Sui address"},"500":{"description":"Internal server error"}}}},"/v2/address/{address}/positions-prepare":{"get":{"summary":"Prepare positions for an address","description":"Prepares and retrieves position information for a given address across various chains and protocols","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to prepare positions for"},{"in":"query","name":"chain","schema":{"type":"string","enum":["BTC","SOL","SUI","TON","ETH","FANTOM","RON","BNB","OP","AVAX","MATIC","ARB","BASE","SCROLL","ZKSYNC","ALL"]},"description":"The blockchain to query (default is \"ALL\")"}],"responses":{"200":{"description":"Successful response with prepared position information","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"string"}}}}}}},"400":{"description":"Invalid address provided"},"500":{"description":"Internal server error"}}}},"/v2/address/{address}/positions":{"get":{"summary":"Get positions for an address","description":"Retrieves position information for a given address across various chains and protocols","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to get positions for"},{"in":"query","name":"protocol","schema":{"type":"string"},"example":"scallop","description":"The specific protocol to query positions. You can get the protocol from api **\"/v2/address/{address}/positions-prepare\"**\n"}],"responses":{"200":{"description":"Successful response with position information","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"oneOf":[{"$ref":"#/components/schemas/StakingPosition"},{"$ref":"#/components/schemas/NativeStakingPosition"},{"$ref":"#/components/schemas/LendingPosition"},{"$ref":"#/components/schemas/VestPosition"},{"$ref":"#/components/schemas/AMMPosition"},{"$ref":"#/components/schemas/CLMMPosition"},{"$ref":"#/components/schemas/BorrowPosition"},{"$ref":"#/components/schemas/FarmPosition"}]}}}}}}},"400":{"description":"Invalid address provided"},"429":{"description":"Too many requests (RPC error)"},"500":{"description":"Internal server error"}}}},"/v2/analysis/{address}/trading-stats":{"get":{"summary":"Get trading statistics for an address","description":"Retrieves trading statistics for a given address over the last 30 days","tags":["Analysis"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to get trading statistics for"}],"responses":{"200":{"description":"Successful response with trading statistics"},"400":{"description":"Invalid address provided"},"500":{"description":"Internal server error"}}}},"/v2/address/{address}/validate":{"get":{"summary":"Validate an address","description":"Validates a given address and returns its context information","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e","description":"The address to validate"}],"responses":{"200":{"description":"Successful response with address context","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"object","properties":{"address":{"type":"string","description":"The validated address"},"type":{"type":"string","description":"The type of the address (e.g., EVM, BTC, MOVE)"},"chain":{"type":"string","description":"The blockchain associated with the address"}}}}}}}},"400":{"description":"Invalid address provided"},"500":{"description":"Internal server error"}}}},"/events/webhooks":{"post":{"summary":"Create a new event webhook","description":"Creates a new webhook for event notifications.","tags":["Events"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string","description":"The URL to send event notifications to."},"addresses":{"type":"array","minItems":1,"maxItems":50,"uniqueItems":true,"items":{"type":"string"},"description":"List of addresses to monitor."}}}}}},"responses":{"200":{"description":"Webhook created successfully","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"$ref":"#/components/schemas/Webhook"}}}}}},"400":{"description":"Missing url or addresses"},"500":{"description":"Internal server error"}}},"get":{"summary":"Retrieve event webhooks","description":"Retrieves all webhooks associated with the API key.","tags":["Events"],"responses":{"200":{"description":"A list of webhooks","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}}}}}}},"500":{"description":"Internal server error"}}}},"/events/webhooks/{id}":{"put":{"summary":"Update an event webhook","description":"Updates the specified webhook.","tags":["Events"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"string"},"example":"1","description":"The ID of the webhook to update"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"url":{"type":"string","description":"The new URL for the webhook."},"addresses":{"type":"array","minItems":1,"maxItems":50,"uniqueItems":true,"items":{"type":"string"},"description":"Updated list of addresses to monitor."}}}}}},"responses":{"200":{"description":"Webhook updated successfully","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"$ref":"#/components/schemas/Webhook"}}}}}},"500":{"description":"Internal server error"}}},"delete":{"summary":"Delete an event webhook","description":"Deletes the specified webhook.","tags":["Events"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"string"},"example":"1","description":"The ID of the webhook to delete"}],"responses":{"200":{"description":"Webhook deleted successfully"},"500":{"description":"Internal server error"}}}},"/events/webhooks/{id}/test":{"post":{"summary":"Test event webhook","description":"Simulates a webhook event and sends a hardcoded transaction to the specified webhook URL.","tags":["Events"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"string"},"example":"1","description":"The ID of the webhook to update"}],"responses":{"200":{"description":"Test webhook executed successfully","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"object","properties":{"message":{"type":"string","example":"Test webhook executed successfully"}}}}}}}},"400":{"description":"Webhook URL not found","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Webhook URL not found"}}}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Internal server error"}}}}}}}}},"/v2/farming/{id}/apy-historical":{"get":{"summary":"Get historical APY data for a specific vault","tags":["Farming"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"string"},"example":"suilend-lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI","description":"The ID of the vault"},{"in":"query","name":"chain","required":true,"schema":{"type":"string"},"description":"The chain of the vault"}],"responses":{"200":{"description":"Historical APY data","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"dateKey":{"type":"string","format":"date-time"},"apy":{"type":"number"},"tvl":{"type":"number"}}}}}}}}},"400":{"description":"Missing id parameter"},"500":{"description":"Server error"}}}},"/v2/farming/{id}/simulate":{"post":{"summary":"Simulate yield farming returns","description":"Calculates potential returns for yield farming based on investment amount and price changes","tags":["Farming"],"parameters":[{"in":"path","name":"id","required":true,"schema":{"type":"string"},"example":"suilend-lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI","description":"The ID of the vault to simulate"},{"in":"query","name":"chain","required":true,"schema":{"type":"string"},"example":"SUI","description":"The chain of the vault"}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["type","data"],"properties":{"type":{"type":"string","enum":["Pools","Lending","Staking"],"description":"The type of yield farming"},"data":{"type":"object","oneOf":[{"required":["priceChangeA","priceChangeB","weightA","weightB","value"],"properties":{"priceChangeA":{"type":"number","minimum":0,"description":"Expected price change for token A (percentage)"},"priceChangeB":{"type":"number","minimum":0,"description":"Expected price change for token B (percentage)"},"weightA":{"type":"number","minimum":0,"description":"Weight of token A in the pool"},"weightB":{"type":"number","minimum":0,"description":"Weight of token B in the pool"},"value":{"type":"number","minimum":0,"description":"Initial investment amount"}}},{"required":["value","priceChange"],"properties":{"value":{"type":"number","minimum":0,"description":"Initial investment amount"},"priceChange":{"type":"number","minimum":0,"description":"Expected price change (percentage)"}}}]}}},"example":{"type":"Pools","data":{"priceChangeA":10,"priceChangeB":20,"weightA":50,"weightB":50,"value":100}}}}},"responses":{"200":{"description":"Simulation results for different time periods","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"$ref":"#/components/schemas/SimulationResult"}}}}}},"400":{"description":"Invalid parameters or missing required fields"},"500":{"description":"Server error"}}}},"/v2/farming/apr/{protocol}":{"get":{"summary":"Get APR data for a specific protocol","tags":["Farming"],"parameters":[{"in":"path","name":"protocol","required":true,"schema":{"type":"string"},"example":"scallop","description":"The protocol slug"},{"in":"query","name":"minTvl","required":false,"schema":{"type":"number"},"description":"The minimum TVL of the protocol"},{"in":"query","name":"maxTvl","required":false,"schema":{"type":"number"},"description":"The maximum TVL of the protocol"},{"in":"query","name":"chain","required":false,"schema":{"type":"string","default":"SUI"},"example":"SUI","description":"The chain of the protocol"},{"in":"query","name":"timestamp","required":false,"schema":{"type":"string"},"description":"The timestamp (in seconds)of the data"}],"responses":{"200":{"description":"Protocol APR data","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"object","properties":{"7d":{"type":"object","properties":{"minApr":{"type":"string"},"maxApr":{"type":"string"},"minApy":{"type":"string"},"maxApy":{"type":"string"},"minBaseApr":{"type":"string"},"maxBaseApr":{"type":"string"},"minRewardsApr":{"type":"string"},"maxRewardsApr":{"type":"string"},"minBaseApy":{"type":"string"},"maxBaseApy":{"type":"string"},"minRewardsApy":{"type":"string"},"maxRewardsApy":{"type":"string"},"minTvl":{"type":"string"},"maxTvl":{"type":"string"},"interval":{"type":"string","enum":["7d"]},"dateKey":{"type":"string","format":"date-time"}}},"30d":{"type":"object","properties":{"minApr":{"type":"string"},"maxApr":{"type":"string"},"minApy":{"type":"string"},"maxApy":{"type":"string"},"minBaseApr":{"type":"string"},"maxBaseApr":{"type":"string"},"minRewardsApr":{"type":"string"},"maxRewardsApr":{"type":"string"},"minBaseApy":{"type":"string"},"maxBaseApy":{"type":"string"},"minRewardsApy":{"type":"string"},"maxRewardsApy":{"type":"string"},"minTvl":{"type":"string"},"maxTvl":{"type":"string"},"interval":{"type":"string","enum":["30d"]},"dateKey":{"type":"string","format":"date-time"}}}}}}}}}},"400":{"description":"Missing protocol parameter"},"500":{"description":"Server error"}}}},"/v2/farming/vaults":{"get":{"summary":"Get investment vaults","tags":["Farming"],"parameters":[{"in":"query","name":"address","schema":{"type":"string"},"example":"0x2::sui::SUI","description":"Query pools/vaults involve with token address (optional, default is \"\")"},{"in":"query","name":"chain","schema":{"type":"string","enum":["SUI","TON","SOL","ECLIPSE"],"default":"SUI"},"required":true,"description":"Query chain"},{"in":"query","name":"tvl","schema":{"type":"string","enum":["< 100K","100K - 500K","500K - 1M","> 1M"]},"description":"filter total value locked (optional, default is \"\")"},{"in":"query","name":"apr","schema":{"type":"string","enum":["< 5%","5% - 25%","25% - 50%","> 50%"]},"description":"filter apy (optional, default is \"\")"},{"in":"query","name":"protocol","schema":{"type":"string"},"description":"filter protocol (optional, default is \"\")"},{"in":"query","name":"type","schema":{"type":"string","enum":["LP","VAULT","STAKING","LENDING"]},"description":"filter type (optional, default is \"\")"},{"in":"query","name":"tags","schema":{"type":"array","items":{"type":"string","enum":["stable_yield","low_risk","high_risk_high_return","airdrop"]}},"description":"filter tags (optional, default is empty)"},{"in":"query","name":"order","schema":{"type":"string","default":"tvl"},"description":"The order by (optional, default is \"tvl\")"},{"in":"query","name":"sort","schema":{"type":"string","default":"desc"},"description":"The sort (optional, default is \"desc\")"},{"in":"query","name":"limit","schema":{"type":"number","default":100},"description":"The limit (optional, default is 100)"},{"in":"query","name":"offset","schema":{"type":"number","default":0},"description":"The offset (optional, default is 0)"}],"responses":{"200":{"description":"List of investment vaults","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/DefiVault"}},"pagination":{"type":"object","properties":{"total":{"type":"number"},"limit":{"type":"number"},"offset":{"type":"number"}}}}}}}},"400":{"description":"Invalid address or other error"},"500":{"description":"Server error"}}}},"/tokens/sui/price":{"get":{"summary":"Retrieve SUI Token Price","description":"Fetches the price of one or more SUI tokens for specified addresses and an optional timestamp.","tags":["Token"],"parameters":[{"in":"query","name":"addresses","required":true,"schema":{"type":"string"},"example":"0x2::sui::SUI","description":"Comma-separated list of SUI token addresses. Maximum 50 tokens."},{"in":"query","name":"timestamp","schema":{"type":"integer"},"description":"Optional timestamp to get the price at a specific time."}],"responses":{"200":{"description":"Successful response with SUI token price information.","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"contract_address":{"type":"string","description":"The contract address of the SUI token."},"symbol":{"type":"string","description":"The symbol of the SUI token."},"price":{"type":"number","description":"The price of the SUI token."},"last24hPrice":{"type":"number","description":"The price of the SUI token in the last 24 hours."},"timestamp":{"type":"number","description":"The unix timestamp of price."},"decimals":{"type":"integer","description":"The number of decimals for the SUI token."},"source":{"type":"string","description":"The source of the price information."}}}}}}}}},"400":{"description":"Bad request due to missing or invalid parameters."},"500":{"description":"Internal server error."}}},"post":{"summary":"Retrieve SUI Token Price","description":"Fetches the price of one or more SUI tokens for specified addresses and an optional timestamp.","tags":["Token"],"requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["addresses"],"properties":{"addresses":{"type":"string","description":"Comma-separated list of SUI token addresses. Maximum 50 tokens.","example":"0x2::sui::SUI"},"timestamp":{"type":"integer","description":"Optional timestamp to get the price at a specific time."}}}}}},"responses":{"200":{"description":"Successful response with SUI token price information.","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"contract_address":{"type":"string","description":"The contract address of the SUI token."},"symbol":{"type":"string","description":"The symbol of the SUI token."},"price":{"type":"number","description":"The price of the SUI token."},"last24hPrice":{"type":"number","description":"The price of the SUI token in the last 24 hours."},"timestamp":{"type":"number","description":"The unix timestamp of price."},"decimals":{"type":"integer","description":"The number of decimals for the SUI token."},"source":{"type":"string","description":"The source of the price information."}}}}}}}}},"400":{"description":"Bad request due to missing or invalid parameters."},"500":{"description":"Internal server error."}}}},"/tokens/sui/price/chart":{"get":{"summary":"Get token price chart data","description":"Retrieves historical price data for a SUI token with different time intervals based on the range\nUnix timestamp in seconds. If not provided, returns data for last 24 hours.\nDifferent ranges will have different intervals:\n- < 1 day: 5-minute intervals\n- < 7 days: 1-hour intervals\n- ≥ 7 days: 1-day intervals\n","tags":["Token"],"parameters":[{"in":"query","name":"address","required":true,"schema":{"type":"string"},"example":"0x2::sui::SUI","description":"The token contract address"},{"in":"query","name":"from","schema":{"type":"integer"},"description":"Start timestamp in seconds. If not provided, defaults to 24 hours ago"},{"in":"query","name":"to","schema":{"type":"integer"},"description":"End timestamp in seconds. If not provided, defaults to current time"}],"responses":{"200":{"description":"Successful response with price chart data","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"object","properties":{"tokenMeta":{"type":"object","properties":{"name":{"type":"string","example":"Sui"},"symbol":{"type":"string","example":"SUI"},"decimals":{"type":"number","example":9},"logo":{"type":"string","example":"https://token-logo.service.com/sui.png"}}},"data":{"type":"array","items":{"type":"object","properties":{"price":{"type":"number","example":1.23},"updatedAt":{"type":"string","format":"date-time","example":"2024-03-20T10:30:00.000Z"},"suiTVL":{"type":"number","example":1000000}}}}}}}}}}},"400":{"description":"Invalid address or timestamp parameters provided"},"500":{"description":"Internal server error"}}}},"/tokens/sui/{address}/price":{"get":{"summary":"Get SUI Token Prices (single)","description":"Retrieves the current price of one SUI token based on provided address and an optional timestamp.","tags":["Token"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x2::sui::SUI","description":"The SUI token address."},{"in":"query","name":"timestamp","schema":{"type":"integer"},"description":"Optional timestamp to fetch the price at a specific time."}],"responses":{"200":{"description":"Successful response containing SUI token price details.","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"contract_address":{"type":"string","description":"The contract address of the SUI token."},"symbol":{"type":"string","description":"The symbol representing the SUI token."},"price":{"type":"number","description":"The current price of the SUI token."},"last24hPrice":{"type":"number","description":"The price of the SUI token over the last 24 hours."},"timestamp":{"type":"number","description":"The Unix timestamp of the price data."},"decimals":{"type":"integer","description":"The number of decimal places for the SUI token."},"source":{"type":"string","description":"The source providing the price information."}}}}}}}}},"400":{"description":"Bad request due to missing or invalid parameters."},"500":{"description":"Internal server error."}}}},"/tokens/sui/price-history":{"get":{"summary":"Get token price history for SUI","description":"Retrieves historical price data for a token with different time ranges and intervals","tags":["Token"],"parameters":[{"in":"query","name":"address","required":true,"schema":{"type":"string"},"example":"0x2::sui::SUI","description":"The token contract address"},{"in":"query","name":"timeRange","schema":{"type":"string","enum":["1d","7d"],"default":"1d"},"description":"Time range for historical data"},{"in":"query","name":"type","schema":{"type":"string","enum":["5m","30m","3h","1h","1d"],"default":"5m"},"description":"Interval type for data points"}],"responses":{"200":{"description":"Historical price data for the token","content":{"application/json":{"schema":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"timestamp":{"type":"number","description":"Unix timestamp"},"price":{"type":"number","description":"Token price at timestamp"}}}}}}}}},"400":{"description":"Invalid parameters provided"},"500":{"description":"Internal server error"}}}},"/airdrops/{address}":{"get":{"summary":"Get airdrops for an address","description":"Returns the airdrops for a given address","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e"}],"responses":{"200":{"description":"Successful response with airdrops data","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"success"},"data":{"type":"array","items":{"type":"object","properties":{"amount":{"type":"number","description":"Amount of tokens in the airdrop"},"eligible":{"type":"boolean","description":"Whether the address is eligible for the airdrop"},"latency":{"type":"number","description":"Response latency in milliseconds"},"logoUrl":{"type":"string","description":"URL of the protocol logo"},"note":{"type":"string","description":"Additional notes about the airdrop"},"potentialValueUsdc":{"type":"number","description":"Potential value in USDC"},"protocol":{"type":"string","description":"Protocol identifier"},"protocolLabel":{"type":"string","description":"Human readable protocol name"},"stage":{"type":"string","description":"Current stage of the airdrop"},"ticker":{"type":"string","description":"Token ticker symbol"},"token":{"type":"string","description":"Token identifier"},"tokenPrice":{"type":"number","description":"Current token price"}}}}}}}}},"400":{"description":"Bad request - Invalid address or bundle","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Invalid address"}}}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Internal Server Error"}}}}}}}}},"/points/{address}":{"get":{"summary":"Get points for an address","description":"Returns the points and related data for a given address, including total points, market data, and point market listings","tags":["Address"],"parameters":[{"in":"path","name":"address","required":true,"schema":{"type":"string"},"example":"6usfBWrWdKoA5BvyAqjjU4R8yKuWbP8JkofrtPk3Rupw"}],"responses":{"200":{"description":"Successful response with points data","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"success"},"data":{"type":"object","properties":{"data":{"type":"array","items":{"type":"object","properties":{"protocol":{"type":"string","description":"Protocol identifier"},"protocolLabel":{"type":"string","description":"Human readable protocol name"},"note":{"type":"string","description":"Additional information about the points"},"points":{"type":"number","description":"Number of points earned"},"stage":{"type":"string","description":"Current stage of the points program"}}}},"totalPoint":{"type":"number","description":"Total points accumulated"},"dataWhalesMarket":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"price":{"type":"number"}}},"description":"Market data from Whales platform"},"pointMarketList":{"type":"array","items":{"type":"object","properties":{"id":{"type":"string"},"type":{"type":"string"},"status":{"type":"string"}}},"description":"List of point market transactions"}}}}}}}},"400":{"description":"Bad request - Invalid address","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Invalid address"}}}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"type":"object","properties":{"error":{"type":"string","example":"Internal Server Error"}}}}}}}}}},"tags":[]}
+openapi: 3.0.0
+info:
+  title: Nimbus API
+  version: 1.0.0
+  description: |-
+    API for Nimbus
+
+    ## Rate Limiting
+    This API implements rate limiting to ensure fair usage and protect our services. The current rate limit is:
+
+    - **500 requests per 10 minutes** per IP address
+
+    If you exceed this limit, you will receive a 429 (Too Many Requests) response. Please wait for the rate limit window to reset before making additional requests.
+
+    If you need more, please contact us at **thanhle@getnimbus.io** or TG **@thanhle27** to get premium API Key.
+servers:
+  - url: https://api.getnimbus.io
+    description: API server
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        publicAddress:
+          type: string
+        displayName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        lastLogin:
+          type: string
+          format: date-time
+          nullable: true
+    NativeToken:
+      type: object
+      properties:
+        name:
+          type: string
+        cmcId:
+          type: number
+        cmc_slug:
+          type: string
+        cgId:
+          type: string
+        symbol:
+          type: string
+        decimals:
+          type: number
+    NFTCollection:
+      type: object
+      properties:
+        description:
+          type: string
+        externalUrl:
+          type: string
+        id:
+          type: string
+        imageUrl:
+          type: string
+        name:
+          type: string
+        totalItems:
+          type: number
+        chain:
+          type: string
+        verified:
+          type: boolean
+        scam:
+          type: boolean
+    NFTToken:
+      type: object
+      properties:
+        royalty:
+          type: number
+        imageUrl:
+          type: string
+        tokenId:
+          type: string
+        contractAddress:
+          type: string
+        name:
+          type: string
+        rarityScore:
+          type: number
+        rank:
+          type: string
+        price:
+          type: number
+        cost:
+          type: number
+    NFTProfit:
+      type: object
+      properties:
+        realizedPnL:
+          type: number
+        unrealizedPnL:
+          type: number
+    NFTHolding:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: The owner address of the NFTs
+        nativeToken:
+          $ref: '#/components/schemas/NativeToken'
+        collection:
+          $ref: '#/components/schemas/NFTCollection'
+        collectionId:
+          type: string
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/NFTToken'
+        floorPrice:
+          type: number
+        marketPrice:
+          type: number
+        profit:
+          $ref: '#/components/schemas/NFTProfit'
+    TokenInfo:
+      type: object
+      required:
+        - contract_address
+        - decimals
+        - name
+        - symbol
+        - logo
+      properties:
+        contract_address:
+          type: string
+          example: 0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA
+        timestamp:
+          type: number
+          example: 1732681440
+        price:
+          type: number
+          example: 0.38829430763915
+        last24hPrice:
+          type: number
+          example: 0.2
+        poolId:
+          type: string
+          example: lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI
+        decimals:
+          type: number
+          example: 9
+        name:
+          type: string
+          example: Scallop
+        symbol:
+          type: string
+          example: SCA
+        source:
+          type: string
+          example: Nimbus
+        logo:
+          type: string
+          example: https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI
+    TokenPosition:
+      type: object
+      required:
+        - amount
+        - value
+        - token
+      properties:
+        amount:
+          type: number
+          example: 230.1003476015875
+        value:
+          type: number
+          example: 89.34665515948616
+        token:
+          $ref: '#/components/schemas/TokenInfo'
+    ProtocolMeta:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Scallop
+        logo:
+          type: string
+          example: https://strapi-dev.scand.app/uploads/Scallop_e86ded6cf4.jpg
+        url:
+          type: string
+          example: https://scallop.io/
+        protocol:
+          type: string
+          example: Scallop
+    FarmingInfo:
+      type: object
+      properties:
+        base_apr:
+          type: number
+          example: 10
+        rewards_apr:
+          type: number
+          example: 20
+        total_apr:
+          type: number
+          example: 30
+        total_apy:
+          type: number
+          example: 40
+        rewards:
+          nullable: true
+          type: array
+          items:
+            type: object
+            properties:
+              token_address:
+                type: string
+                example: 0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA
+              logo:
+                type: string
+                example: https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI
+              token_name:
+                type: string
+                example: Scallop
+              token_symbol:
+                type: string
+                example: SCA
+              token_decimals:
+                type: number
+                example: 9
+    FarmPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262'
+        poolId:
+          type: string
+          example: 0x123...abc
+        type:
+          type: string
+          enum:
+            - Farm
+          example: Farm
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        claimed:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            fee:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  example: 0
+                token:
+                  $ref: '#/components/schemas/TokenInfo'
+            healthy:
+              type: number
+              example: 1.5
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - Boosted
+        chain:
+          type: string
+          example: SUI
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    StakingPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: 0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+        fee:
+          type: number
+          example: 0
+        chain:
+          type: string
+          example: SUI
+        type:
+          type: string
+          enum:
+            - Staking
+          example: Staking
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    NativeStakingPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0xb8068ad94d7f0448059ae3ea1d877f2af54792b2849d80e2753201adfa532411'
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            validatorInfo:
+              type: object
+              properties:
+                name:
+                  type: string
+                  nullable: true
+                  example: Suiet
+                logo:
+                  type: string
+                  nullable: true
+                  example: https://assets.suiet.app/logo.png
+        fee:
+          type: number
+          example: 0
+        chain:
+          type: string
+          example: SUI
+        type:
+          type: string
+          enum:
+            - NativeStaking
+          example: NativeStaking
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    VestPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0xb8068ad94d7f0448059ae3ea1d877f2af54792b2849d80e2753201adfa532411'
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            endDate:
+              type: string
+              nullable: true
+              example: '2024-12-08T00:00:00.000Z'
+        fee:
+          type: number
+          example: 0
+        chain:
+          type: string
+          example: SUI
+        type:
+          type: string
+          enum:
+            - Vest
+          example: Vest
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    LendingPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262'
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+        fee:
+          type: object
+          properties:
+            value:
+              type: number
+              example: 0
+        chain:
+          type: string
+          enum:
+            - SUI
+          example: SUI
+        type:
+          type: string
+          enum:
+            - Lending
+          example: Lending
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - Boosted
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    AMMPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0xe680066288f8ae8120ff9b5a7accfede974cdfdb07bae9a38b43ee3edf505a7e'
+        owner:
+          type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+        fee:
+          type: object
+          properties:
+            value:
+              type: number
+              example: 0
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - Farming
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        chain:
+          type: string
+          enum:
+            - SUI
+          example: SUI
+        type:
+          type: string
+          enum:
+            - AMM
+          example: AMM
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    CLMMPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0x4f551b64b0a7df43626ac93962c4eb67a58c29b0336ce166c739aee0bd717ddc'
+        owner:
+          type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            currentPrice:
+              type: string
+              example: '1504.79'
+            lowerPrice:
+              type: string
+              example: '0.000000000000000054516'
+            upperPrice:
+              type: string
+              example: '18343046657752086085365.35'
+            isInRange:
+              type: boolean
+              example: true
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+        chain:
+          type: string
+          enum:
+            - SUI
+          example: SUI
+        type:
+          type: string
+          enum:
+            - CLMM
+          example: CLMM
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    BorrowPosition:
+      type: object
+      properties:
+        positionId:
+          type: string
+          example: '0x91bd1dc1cc5586706444ab8f7f9b2bf3f73e97aabb3269e03291763ed5fc4262'
+        owner:
+          type: string
+          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+        poolId:
+          type: string
+          example: 0x123...abc
+        input:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/TokenPosition'
+              - $ref: '#/components/schemas/LendingPosition'
+        yieldCollected:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenPosition'
+        current:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            yield:
+              type: array
+              items:
+                $ref: '#/components/schemas/TokenPosition'
+            healthy:
+              type: number
+              example: 1.5
+        fee:
+          type: object
+          properties:
+            value:
+              type: number
+              example: 0
+        chain:
+          type: string
+          example: SUI
+        type:
+          type: string
+          enum:
+            - Borrow
+          example: Borrow
+        tags:
+          type: array
+          items:
+            type: string
+          example:
+            - Boosted
+        farming:
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmingInfo'
+        meta:
+          type: object
+          properties:
+            protocol:
+              $ref: '#/components/schemas/ProtocolMeta'
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the webhook
+        owner:
+          type: string
+          description: The API key of the webhook owner
+        url:
+          type: string
+          description: The URL to which webhook events will be sent
+        addresses:
+          type: array
+          items:
+            type: string
+          description: List of addresses being monitored by this webhook
+        chain:
+          type: string
+          description: The blockchain chain associated with this webhook
+          default: SUI
+        createdAt:
+          type: string
+          format: date-time
+          description: The date and time when the webhook was created
+        updatedAt:
+          type: string
+          format: date-time
+          description: The date and time when the webhook was last updated
+      required:
+        - owner
+        - url
+        - addresses
+    SimulationResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date-time
+              value:
+                type: number
+                description: Value of the investment
+        il:
+          type: number
+          description: Impermanent loss percentage
+        ilAmount:
+          type: number
+          description: Impermanent loss amount
+    DefiVault:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        chain:
+          type: string
+        protocol:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        type:
+          type: string
+          enum:
+            - LP
+            - VAULT
+            - STAKING
+            - LENDING
+        apr:
+          type: number
+          description: Base APR
+        apy:
+          type: number
+          description: Base APY
+        apr_rewards:
+          type: number
+          description: Bonus APR rewards
+        totalApr:
+          type: number
+          description: Total APR = base_apr + apr_rewards
+        totalApy:
+          type: number
+        tvl:
+          type: number
+        coins:
+          type: array
+          items:
+            type: string
+          description: The list of tokens in pool/vault
+        rewards:
+          type: object
+          properties:
+            tokens:
+              type: array
+              items:
+                type: object
+                properties:
+                  token_address:
+                    type: string
+                  token_name:
+                    type: string
+                  token_symbol:
+                    type: string
+                  logo:
+                    type: string
+              description: The list of reward tokens
+        farmLink:
+          type: string
+        label:
+          type: array
+          items:
+            type: string
+        logo:
+          type: string
+        stats:
+          type: object
+          properties:
+            7d:
+              type: object
+              properties:
+                minApr:
+                  type: number
+                maxApr:
+                  type: number
+                minApy:
+                  type: number
+                maxApy:
+                  type: number
+                minBaseApr:
+                  type: number
+                maxBaseApr:
+                  type: number
+                minRewardsApr:
+                  type: number
+                maxRewardsApr:
+                  type: number
+                minBaseApy:
+                  type: number
+                maxBaseApy:
+                  type: number
+                minRewardsApy:
+                  type: number
+                maxRewardsApy:
+                  type: number
+                minTvl:
+                  type: number
+                maxTvl:
+                  type: number
+            30d:
+              type: object
+              properties:
+                minApr:
+                  type: number
+                maxApr:
+                  type: number
+                minApy:
+                  type: number
+                maxApy:
+                  type: number
+                minBaseApr:
+                  type: number
+                maxBaseApr:
+                  type: number
+                minRewardsApr:
+                  type: number
+                maxRewardsApr:
+                  type: number
+                minBaseApy:
+                  type: number
+                maxBaseApy:
+                  type: number
+                minRewardsApy:
+                  type: number
+                maxRewardsApy:
+                  type: number
+                minTvl:
+                  type: number
+                maxTvl:
+                  type: number
+security:
+  - apiKeyAuth: []
+paths:
+  /v2/address/{address}/dids:
+    get:
+      summary: Get DIDs for an address
+      description: Retrieves Decentralized Identifier (DID) associated with an address. Currently supports SUI Name Service (SNS) for Sui addresses and domain TLDs for SOL addresses.
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x1aadcafd7750f479eb0ac0fbcc4cade7b4de8205'
+          description: The blockchain address to query DID accounts for
+      responses:
+        '200':
+          description: Successfully retrieved DID accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                        description: Wallet address
+                        example: 0x123...abc
+                      data:
+                        type: array
+                        description: List of name services associated with the address
+                        items:
+                          type: string
+                        example:
+                          - example.sui
+                          - test.sol
+        '400':
+          description: Invalid address provided
+        '500':
+          description: Internal server error
+  /v2/address/{address}/nft-holding:
+    get:
+      summary: Get NFT holding information for an address
+      description: Retrieves NFT holding information for a given address, including collection details and token information
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to get NFT holding information for
+        - in: query
+          name: chain
+          schema:
+            type: string
+            enum:
+              - BTC
+              - SOL
+              - SUI
+              - TON
+              - ETH
+              - FANTOM
+              - RON
+              - BNB
+              - OP
+              - AVAX
+              - MATIC
+              - ARB
+              - BASE
+              - SCROLL
+              - ZKSYNC
+              - ALL
+          description: The blockchain to query (default is "ALL")
+        - in: query
+          name: includePnl
+          schema:
+            type: boolean
+            default: false
+          description: Include profit and loss information
+      responses:
+        '200':
+          description: Successful response with NFT holding information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NFTHolding'
+        '400':
+          description: Invalid address provided
+        '401':
+          description: Unauthorized access for bundle addresses without owner
+        '500':
+          description: Internal server error
+  /v2/address/{address}/holding:
+    get:
+      summary: Get holding information for an address
+      description: Retrieves holding information for a given address, including token balances and their values
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to get holding information for
+        - in: query
+          name: chain
+          schema:
+            type: string
+            enum:
+              - BTC
+              - SOL
+              - SUI
+              - TON
+              - ETH
+              - FANTOM
+              - RON
+              - BNB
+              - OP
+              - AVAX
+              - MATIC
+              - ARB
+              - BASE
+              - SCROLL
+              - ZKSYNC
+              - ALL
+          description: The blockchain to query (default is "ALL")
+        - in: query
+          name: force_refresh
+          schema:
+            type: boolean
+          description: Force a refresh of the data instead of using cached results
+        - in: query
+          name: includePnl
+          schema:
+            type: boolean
+            default: false
+          description: Include profit and loss information (default is false)
+      responses:
+        '200':
+          description: Successful response with paginated holding information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        owner:
+                          type: string
+                          description: The owner's address
+                          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+                        name:
+                          type: string
+                          description: Token name
+                          example: suirwd.io - Sui Reward Token
+                        symbol:
+                          type: string
+                          description: Token symbol
+                          example: SUIRWD.IO
+                        logo:
+                          type: string
+                          description: URL to token logo
+                          example: https://suicamp.b-cdn.net/suireward/suirwd_icon.png
+                        amount:
+                          type: string
+                          description: Formatted token amount
+                          example: '9683.2'
+                        amountRaw:
+                          type: string
+                          description: Raw token amount
+                          example: '9683200000000'
+                        balance:
+                          type: string
+                          description: Token balance
+                          example: '9683.2'
+                        contractAddress:
+                          type: string
+                          description: Token contract address
+                          example: 0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD
+                        contractDecimals:
+                          type: integer
+                          description: Token decimals
+                          example: 9
+                        rate:
+                          type: number
+                          description: Token rate
+                          example: 0
+                        price:
+                          type: object
+                          properties:
+                            price:
+                              type: number
+                              example: 0
+                            symbol:
+                              type: string
+                              example: SUIRWD.IO
+                            decimal:
+                              type: integer
+                              example: 9
+                            source:
+                              type: string
+                              example: C
+                        last_24h_price:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Price change in last 24 hours
+                        avgCost:
+                          type: number
+                          description: Average cost of token
+                          example: 0
+                        last_transferred_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Timestamp of last transfer
+                        positionId:
+                          type: string
+                          description: Unique position identifier
+                          example: SUI-0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD
+                        category:
+                          type: string
+                          description: Token category
+                          example: Other
+                        sector:
+                          type: string
+                          description: Token sector
+                          example: Other
+                        rank:
+                          type: string
+                          description: Token rank
+                          example: No rank yet
+                        positionType:
+                          type: string
+                          description: Type of position
+                          example: token
+                        chain:
+                          type: string
+                          description: Blockchain network
+                          example: SUI
+                        is_spam:
+                          type: boolean
+                          description: Whether token is marked as spam
+                          example: true
+        '400':
+          description: Invalid address provided
+        '401':
+          description: Unauthorized access for CEX addresses without owner
+        '500':
+          description: Internal server error
+  /v3/address/{address}/holding:
+    get:
+      summary: Get paginated holding information for an address
+      description: Retrieves paginated holding information for a given address, including token balances and their values
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: Wallet address to get holding info
+        - in: query
+          name: chain
+          schema:
+            type: string
+            enum:
+              - SUI
+            default: SUI
+          description: The blockchain to query
+        - in: query
+          name: force_refresh
+          schema:
+            type: boolean
+          description: Force a refresh of the data instead of using cached results
+        - in: query
+          name: includePnl
+          schema:
+            type: boolean
+            default: false
+          description: Include profit and loss information (default is false)
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+            default: 500
+          description: Number of results per page
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Number of results to skip
+      responses:
+        '200':
+          description: Successful response with paginated holding information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        owner:
+                          type: string
+                          description: The owner's address
+                          example: '0x7383b5e076553f79822374baca843c8fac02d510fb0f4ab344fc7ab591be94a7'
+                        name:
+                          type: string
+                          description: Token name
+                          example: suirwd.io - Sui Reward Token
+                        symbol:
+                          type: string
+                          description: Token symbol
+                          example: SUIRWD.IO
+                        logo:
+                          type: string
+                          description: URL to token logo
+                          example: https://suicamp.b-cdn.net/suireward/suirwd_icon.png
+                        amount:
+                          type: string
+                          description: Formatted token amount
+                          example: '9683.2'
+                        amountRaw:
+                          type: string
+                          description: Raw token amount
+                          example: '9683200000000'
+                        balance:
+                          type: string
+                          description: Token balance
+                          example: '9683.2'
+                        contractAddress:
+                          type: string
+                          description: Token contract address
+                          example: 0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD
+                        contractDecimals:
+                          type: integer
+                          description: Token decimals
+                          example: 9
+                        rate:
+                          type: number
+                          description: Token rate
+                          example: 0
+                        price:
+                          type: object
+                          properties:
+                            price:
+                              type: number
+                              example: 0
+                            symbol:
+                              type: string
+                              example: SUIRWD.IO
+                            decimal:
+                              type: integer
+                              example: 9
+                            source:
+                              type: string
+                              example: C
+                        last_24h_price:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Price change in last 24 hours
+                        avgCost:
+                          type: number
+                          description: Average cost of token
+                          example: 0
+                        last_transferred_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                          description: Timestamp of last transfer
+                        positionId:
+                          type: string
+                          description: Unique position identifier
+                          example: SUI-0xca2c295de7931476539e5fc68e96c289f84bb0967d579b13e1fbf84412c87eb4::SuiReward::SUIREWARD
+                        category:
+                          type: string
+                          description: Token category
+                          example: Other
+                        sector:
+                          type: string
+                          description: Token sector
+                          example: Other
+                        rank:
+                          type: string
+                          description: Token rank
+                          example: No rank yet
+                        positionType:
+                          type: string
+                          description: Type of position
+                          example: token
+                        chain:
+                          type: string
+                          description: Blockchain network
+                          example: SUI
+                        is_spam:
+                          type: boolean
+                          description: Whether token is marked as spam
+                          example: true
+        '400':
+          description: Invalid address provided or non-Sui address
+        '500':
+          description: Internal server error
+  /v2/address/{address}/positions-prepare:
+    get:
+      summary: Prepare positions for an address
+      description: Prepares and retrieves position information for a given address across various chains and protocols
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to prepare positions for
+        - in: query
+          name: chain
+          schema:
+            type: string
+            enum:
+              - BTC
+              - SOL
+              - SUI
+              - TON
+              - ETH
+              - FANTOM
+              - RON
+              - BNB
+              - OP
+              - AVAX
+              - MATIC
+              - ARB
+              - BASE
+              - SCROLL
+              - ZKSYNC
+              - ALL
+          description: The blockchain to query (default is "ALL")
+      responses:
+        '200':
+          description: Successful response with prepared position information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Invalid address provided
+        '500':
+          description: Internal server error
+  /v2/address/{address}/positions:
+    get:
+      summary: Get positions for an address
+      description: Retrieves position information for a given address across various chains and protocols
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to get positions for
+        - in: query
+          name: protocol
+          schema:
+            type: string
+          example: scallop
+          description: |
+            The specific protocol to query positions. You can get the protocol from api **"/v2/address/{address}/positions-prepare"**
+      responses:
+        '200':
+          description: Successful response with position information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      oneOf:
+                        - $ref: '#/components/schemas/StakingPosition'
+                        - $ref: '#/components/schemas/NativeStakingPosition'
+                        - $ref: '#/components/schemas/LendingPosition'
+                        - $ref: '#/components/schemas/VestPosition'
+                        - $ref: '#/components/schemas/AMMPosition'
+                        - $ref: '#/components/schemas/CLMMPosition'
+                        - $ref: '#/components/schemas/BorrowPosition'
+                        - $ref: '#/components/schemas/FarmPosition'
+        '400':
+          description: Invalid address provided
+        '429':
+          description: Too many requests (RPC error)
+        '500':
+          description: Internal server error
+  /v2/analysis/{address}/trading-stats:
+    get:
+      summary: Get trading statistics for an address
+      description: Retrieves trading statistics for a given address over the last 30 days
+      tags:
+        - Analysis
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to get trading statistics for
+      responses:
+        '200':
+          description: Successful response with trading statistics
+        '400':
+          description: Invalid address provided
+        '500':
+          description: Internal server error
+  /v2/address/{address}/validate:
+    get:
+      summary: Validate an address
+      description: Validates a given address and returns its context information
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+          description: The address to validate
+      responses:
+        '200':
+          description: Successful response with address context
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      address:
+                        type: string
+                        description: The validated address
+                      type:
+                        type: string
+                        description: The type of the address (e.g., EVM, BTC, MOVE)
+                      chain:
+                        type: string
+                        description: The blockchain associated with the address
+        '400':
+          description: Invalid address provided
+        '500':
+          description: Internal server error
+  /onchain/{address}/airdrops:
+    get:
+      summary: Get airdrops for an address
+      description: Returns the airdrops information (Bluefin, Suilend) for a given address
+      tags:
+        - Airdrops
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: The address to get airdrops for
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+      responses:
+        '200':
+          description: Successful response with airdrops data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      bluefinAirdrops:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                            description: Amount of BLUE tokens
+                          eligible:
+                            type: boolean
+                          protocol:
+                            type: string
+                          token:
+                            type: string
+                      suilendAirdrops:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                            description: Amount of SEND tokens
+                          eligible:
+                            type: boolean
+                          protocol:
+                            type: string
+                          token:
+                            type: string
+        '400':
+          description: Invalid address or unsupported chain
+        '500':
+          description: Internal server error
+  /events/webhooks:
+    post:
+      summary: Create a new event webhook
+      description: Creates a new webhook for event notifications.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The URL to send event notifications to.
+                addresses:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  uniqueItems: true
+                  items:
+                    type: string
+                  description: List of addresses to monitor.
+      responses:
+        '200':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '400':
+          description: Missing url or addresses
+        '500':
+          description: Internal server error
+    get:
+      summary: Retrieve event webhooks
+      description: Retrieves all webhooks associated with the API key.
+      tags:
+        - Events
+      responses:
+        '200':
+          description: A list of webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '500':
+          description: Internal server error
+  /events/webhooks/{id}:
+    put:
+      summary: Update an event webhook
+      description: Updates the specified webhook.
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: '1'
+          description: The ID of the webhook to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The new URL for the webhook.
+                addresses:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  uniqueItems: true
+                  items:
+                    type: string
+                  description: Updated list of addresses to monitor.
+      responses:
+        '200':
+          description: Webhook updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete an event webhook
+      description: Deletes the specified webhook.
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: '1'
+          description: The ID of the webhook to delete
+      responses:
+        '200':
+          description: Webhook deleted successfully
+        '500':
+          description: Internal server error
+  /events/webhooks/{id}/test:
+    post:
+      summary: Test event webhook
+      description: Simulates a webhook event and sends a hardcoded transaction to the specified webhook URL.
+      tags:
+        - Events
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: '1'
+          description: The ID of the webhook to update
+      responses:
+        '200':
+          description: Test webhook executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Test webhook executed successfully
+        '400':
+          description: Webhook URL not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Webhook URL not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error
+  /v2/farming/{id}/apy-historical:
+    get:
+      summary: Get historical APY data for a specific vault
+      tags:
+        - Farming
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: suilend-lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI
+          description: The ID of the vault
+        - in: query
+          name: chain
+          required: true
+          schema:
+            type: string
+          description: The chain of the vault
+      responses:
+        '200':
+          description: Historical APY data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dateKey:
+                          type: string
+                          format: date-time
+                        apy:
+                          type: number
+                        tvl:
+                          type: number
+        '400':
+          description: Missing id parameter
+        '500':
+          description: Server error
+  /v2/farming/{id}/simulate:
+    post:
+      summary: Simulate yield farming returns
+      description: Calculates potential returns for yield farming based on investment amount and price changes
+      tags:
+        - Farming
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: suilend-lending:0x83556891f4a0f233ce7b05cfe7f957d4020492a34f5405b2cb9377d060bef4bf::spring_sui::SPRING_SUI
+          description: The ID of the vault to simulate
+        - in: query
+          name: chain
+          required: true
+          schema:
+            type: string
+          example: SUI
+          description: The chain of the vault
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - data
+              properties:
+                type:
+                  type: string
+                  enum:
+                    - Pools
+                    - Lending
+                    - Staking
+                  description: The type of yield farming
+                data:
+                  type: object
+                  oneOf:
+                    - required:
+                        - priceChangeA
+                        - priceChangeB
+                        - weightA
+                        - weightB
+                        - value
+                      properties:
+                        priceChangeA:
+                          type: number
+                          minimum: 0
+                          description: Expected price change for token A (percentage)
+                        priceChangeB:
+                          type: number
+                          minimum: 0
+                          description: Expected price change for token B (percentage)
+                        weightA:
+                          type: number
+                          minimum: 0
+                          description: Weight of token A in the pool
+                        weightB:
+                          type: number
+                          minimum: 0
+                          description: Weight of token B in the pool
+                        value:
+                          type: number
+                          minimum: 0
+                          description: Initial investment amount
+                    - required:
+                        - value
+                        - priceChange
+                      properties:
+                        value:
+                          type: number
+                          minimum: 0
+                          description: Initial investment amount
+                        priceChange:
+                          type: number
+                          minimum: 0
+                          description: Expected price change (percentage)
+            example:
+              type: Pools
+              data:
+                priceChangeA: 10
+                priceChangeB: 20
+                weightA: 50
+                weightB: 50
+                value: 100
+      responses:
+        '200':
+          description: Simulation results for different time periods
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SimulationResult'
+        '400':
+          description: Invalid parameters or missing required fields
+        '500':
+          description: Server error
+  /v2/farming/apr/{protocol}:
+    get:
+      summary: Get APR data for a specific protocol
+      tags:
+        - Farming
+      parameters:
+        - in: path
+          name: protocol
+          required: true
+          schema:
+            type: string
+          example: scallop
+          description: The protocol slug
+        - in: query
+          name: minTvl
+          required: false
+          schema:
+            type: number
+          description: The minimum TVL of the protocol
+        - in: query
+          name: maxTvl
+          required: false
+          schema:
+            type: number
+          description: The maximum TVL of the protocol
+        - in: query
+          name: chain
+          required: false
+          schema:
+            type: string
+            default: SUI
+          example: SUI
+          description: The chain of the protocol
+        - in: query
+          name: timestamp
+          required: false
+          schema:
+            type: string
+          description: The timestamp (in seconds)of the data
+      responses:
+        '200':
+          description: Protocol APR data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      7d:
+                        type: object
+                        properties:
+                          minApr:
+                            type: string
+                          maxApr:
+                            type: string
+                          minApy:
+                            type: string
+                          maxApy:
+                            type: string
+                          minBaseApr:
+                            type: string
+                          maxBaseApr:
+                            type: string
+                          minRewardsApr:
+                            type: string
+                          maxRewardsApr:
+                            type: string
+                          minBaseApy:
+                            type: string
+                          maxBaseApy:
+                            type: string
+                          minRewardsApy:
+                            type: string
+                          maxRewardsApy:
+                            type: string
+                          minTvl:
+                            type: string
+                          maxTvl:
+                            type: string
+                          interval:
+                            type: string
+                            enum:
+                              - 7d
+                          dateKey:
+                            type: string
+                            format: date-time
+                      30d:
+                        type: object
+                        properties:
+                          minApr:
+                            type: string
+                          maxApr:
+                            type: string
+                          minApy:
+                            type: string
+                          maxApy:
+                            type: string
+                          minBaseApr:
+                            type: string
+                          maxBaseApr:
+                            type: string
+                          minRewardsApr:
+                            type: string
+                          maxRewardsApr:
+                            type: string
+                          minBaseApy:
+                            type: string
+                          maxBaseApy:
+                            type: string
+                          minRewardsApy:
+                            type: string
+                          maxRewardsApy:
+                            type: string
+                          minTvl:
+                            type: string
+                          maxTvl:
+                            type: string
+                          interval:
+                            type: string
+                            enum:
+                              - 30d
+                          dateKey:
+                            type: string
+                            format: date-time
+        '400':
+          description: Missing protocol parameter
+        '500':
+          description: Server error
+  /v2/farming/vaults:
+    get:
+      summary: Get investment vaults
+      tags:
+        - Farming
+      parameters:
+        - in: query
+          name: address
+          schema:
+            type: string
+          example: 0x2::sui::SUI
+          description: Query pools/vaults involve with token address (optional, default is "")
+        - in: query
+          name: chain
+          schema:
+            type: string
+            enum:
+              - SUI
+              - TON
+              - SOL
+              - ECLIPSE
+            default: SUI
+          required: true
+          description: Query chain
+        - in: query
+          name: tvl
+          schema:
+            type: string
+            enum:
+              - < 100K
+              - 100K - 500K
+              - 500K - 1M
+              - '> 1M'
+          description: filter total value locked (optional, default is "")
+        - in: query
+          name: apr
+          schema:
+            type: string
+            enum:
+              - < 5%
+              - 5% - 25%
+              - 25% - 50%
+              - '> 50%'
+          description: filter apy (optional, default is "")
+        - in: query
+          name: protocol
+          schema:
+            type: string
+          description: filter protocol (optional, default is "")
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum:
+              - LP
+              - VAULT
+              - STAKING
+              - LENDING
+          description: filter type (optional, default is "")
+        - in: query
+          name: tags
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - stable_yield
+                - low_risk
+                - high_risk_high_return
+                - airdrop
+          description: filter tags (optional, default is empty)
+        - in: query
+          name: order
+          schema:
+            type: string
+            default: tvl
+          description: The order by (optional, default is "tvl")
+        - in: query
+          name: sort
+          schema:
+            type: string
+            default: desc
+          description: The sort (optional, default is "desc")
+        - in: query
+          name: limit
+          schema:
+            type: number
+            default: 100
+          description: The limit (optional, default is 100)
+        - in: query
+          name: offset
+          schema:
+            type: number
+            default: 0
+          description: The offset (optional, default is 0)
+      responses:
+        '200':
+          description: List of investment vaults
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DefiVault'
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: number
+                      limit:
+                        type: number
+                      offset:
+                        type: number
+        '400':
+          description: Invalid address or other error
+        '500':
+          description: Server error
+  /tokens/sui/price:
+    get:
+      summary: Retrieve SUI Token Price
+      description: Fetches the price of one or more SUI tokens for specified addresses and an optional timestamp.
+      tags:
+        - Token
+      parameters:
+        - in: query
+          name: addresses
+          required: true
+          schema:
+            type: string
+          example: 0x2::sui::SUI
+          description: Comma-separated list of SUI token addresses. Maximum 50 tokens.
+        - in: query
+          name: timestamp
+          schema:
+            type: integer
+          description: Optional timestamp to get the price at a specific time.
+      responses:
+        '200':
+          description: Successful response with SUI token price information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contract_address:
+                          type: string
+                          description: The contract address of the SUI token.
+                        symbol:
+                          type: string
+                          description: The symbol of the SUI token.
+                        price:
+                          type: number
+                          description: The price of the SUI token.
+                        last24hPrice:
+                          type: number
+                          description: The price of the SUI token in the last 24 hours.
+                        timestamp:
+                          type: number
+                          description: The unix timestamp of price.
+                        decimals:
+                          type: integer
+                          description: The number of decimals for the SUI token.
+                        source:
+                          type: string
+                          description: The source of the price information.
+        '400':
+          description: Bad request due to missing or invalid parameters.
+        '500':
+          description: Internal server error.
+    post:
+      summary: Retrieve SUI Token Price
+      description: Fetches the price of one or more SUI tokens for specified addresses and an optional timestamp.
+      tags:
+        - Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - addresses
+              properties:
+                addresses:
+                  type: string
+                  description: Comma-separated list of SUI token addresses. Maximum 50 tokens.
+                  example: 0x2::sui::SUI
+                timestamp:
+                  type: integer
+                  description: Optional timestamp to get the price at a specific time.
+      responses:
+        '200':
+          description: Successful response with SUI token price information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contract_address:
+                          type: string
+                          description: The contract address of the SUI token.
+                        symbol:
+                          type: string
+                          description: The symbol of the SUI token.
+                        price:
+                          type: number
+                          description: The price of the SUI token.
+                        last24hPrice:
+                          type: number
+                          description: The price of the SUI token in the last 24 hours.
+                        timestamp:
+                          type: number
+                          description: The unix timestamp of price.
+                        decimals:
+                          type: integer
+                          description: The number of decimals for the SUI token.
+                        source:
+                          type: string
+                          description: The source of the price information.
+        '400':
+          description: Bad request due to missing or invalid parameters.
+        '500':
+          description: Internal server error.
+  /tokens/sui/price/chart:
+    get:
+      summary: Get token price chart data
+      description: |
+        Retrieves historical price data for a SUI token with different time intervals based on the range
+        Unix timestamp in seconds. If not provided, returns data for last 24 hours.
+        Different ranges will have different intervals:
+        - < 1 day: 5-minute intervals
+        - < 7 days: 1-hour intervals
+        - ≥ 7 days: 1-day intervals
+      tags:
+        - Token
+      parameters:
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+          example: 0x2::sui::SUI
+          description: The token contract address
+        - in: query
+          name: from
+          schema:
+            type: integer
+          description: Start timestamp in seconds. If not provided, defaults to 24 hours ago
+        - in: query
+          name: to
+          schema:
+            type: integer
+          description: End timestamp in seconds. If not provided, defaults to current time
+      responses:
+        '200':
+          description: Successful response with price chart data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      tokenMeta:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: Sui
+                          symbol:
+                            type: string
+                            example: SUI
+                          decimals:
+                            type: number
+                            example: 9
+                          logo:
+                            type: string
+                            example: https://token-logo.service.com/sui.png
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            price:
+                              type: number
+                              example: 1.23
+                            updatedAt:
+                              type: string
+                              format: date-time
+                              example: '2024-03-20T10:30:00.000Z'
+                            suiTVL:
+                              type: number
+                              example: 1000000
+        '400':
+          description: Invalid address or timestamp parameters provided
+        '500':
+          description: Internal server error
+  /tokens/sui/{address}/price:
+    get:
+      summary: Get SUI Token Prices (single)
+      description: Retrieves the current price of one SUI token based on provided address and an optional timestamp.
+      tags:
+        - Token
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: 0x2::sui::SUI
+          description: The SUI token address.
+        - in: query
+          name: timestamp
+          schema:
+            type: integer
+          description: Optional timestamp to fetch the price at a specific time.
+      responses:
+        '200':
+          description: Successful response containing SUI token price details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contract_address:
+                          type: string
+                          description: The contract address of the SUI token.
+                        symbol:
+                          type: string
+                          description: The symbol representing the SUI token.
+                        price:
+                          type: number
+                          description: The current price of the SUI token.
+                        last24hPrice:
+                          type: number
+                          description: The price of the SUI token over the last 24 hours.
+                        timestamp:
+                          type: number
+                          description: The Unix timestamp of the price data.
+                        decimals:
+                          type: integer
+                          description: The number of decimal places for the SUI token.
+                        source:
+                          type: string
+                          description: The source providing the price information.
+        '400':
+          description: Bad request due to missing or invalid parameters.
+        '500':
+          description: Internal server error.
+  /tokens/sui/price-history:
+    get:
+      summary: Get token price history for SUI
+      description: Retrieves historical price data for a token with different time ranges and intervals
+      tags:
+        - Token
+      parameters:
+        - in: query
+          name: address
+          required: true
+          schema:
+            type: string
+          example: 0x2::sui::SUI
+          description: The token contract address
+        - in: query
+          name: timeRange
+          schema:
+            type: string
+            enum:
+              - 1d
+              - 7d
+            default: 1d
+          description: Time range for historical data
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum:
+              - 5m
+              - 30m
+              - 3h
+              - 1h
+              - 1d
+            default: 5m
+          description: Interval type for data points
+      responses:
+        '200':
+          description: Historical price data for the token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timestamp:
+                          type: number
+                          description: Unix timestamp
+                        price:
+                          type: number
+                          description: Token price at timestamp
+        '400':
+          description: Invalid parameters provided
+        '500':
+          description: Internal server error
+  /airdrops/{address}:
+    get:
+      summary: Get airdrops for an address
+      description: Returns the airdrops for a given address
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
+      responses:
+        '200':
+          description: Successful response with airdrops data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        amount:
+                          type: number
+                          description: Amount of tokens in the airdrop
+                        eligible:
+                          type: boolean
+                          description: Whether the address is eligible for the airdrop
+                        latency:
+                          type: number
+                          description: Response latency in milliseconds
+                        logoUrl:
+                          type: string
+                          description: URL of the protocol logo
+                        note:
+                          type: string
+                          description: Additional notes about the airdrop
+                        potentialValueUsdc:
+                          type: number
+                          description: Potential value in USDC
+                        protocol:
+                          type: string
+                          description: Protocol identifier
+                        protocolLabel:
+                          type: string
+                          description: Human readable protocol name
+                        stage:
+                          type: string
+                          description: Current stage of the airdrop
+                        ticker:
+                          type: string
+                          description: Token ticker symbol
+                        token:
+                          type: string
+                          description: Token identifier
+                        tokenPrice:
+                          type: number
+                          description: Current token price
+        '400':
+          description: Bad request - Invalid address or bundle
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid address
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error
+  /points/{address}:
+    get:
+      summary: Get points for an address
+      description: Returns the points and related data for a given address, including total points, market data, and point market listings
+      tags:
+        - Address
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          example: 6usfBWrWdKoA5BvyAqjjU4R8yKuWbP8JkofrtPk3Rupw
+      responses:
+        '200':
+          description: Successful response with points data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            protocol:
+                              type: string
+                              description: Protocol identifier
+                            protocolLabel:
+                              type: string
+                              description: Human readable protocol name
+                            note:
+                              type: string
+                              description: Additional information about the points
+                            points:
+                              type: number
+                              description: Number of points earned
+                            stage:
+                              type: string
+                              description: Current stage of the points program
+                      totalPoint:
+                        type: number
+                        description: Total points accumulated
+                      dataWhalesMarket:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            price:
+                              type: number
+                        description: Market data from Whales platform
+                      pointMarketList:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                            status:
+                              type: string
+                        description: List of point market transactions
+        '400':
+          description: Bad request - Invalid address
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid address
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error
+tags: []
