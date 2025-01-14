@@ -32,21 +32,57 @@
       "openapi": "/api-reference/openapi.json"
     }
   ],
-  "anchors": [
-  ],
+  "anchors": [],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
         "supported-chain",
-        "supported-protocol"
+        {
+          "group": "Supported Protocol",
+          "pages": [
+            "supported-protocol/Aerodrome",
+            "supported-protocol/AftermathFinance",
+            "supported-protocol/AlphaFi",
+            "supported-protocol/BlueMove",
+            "supported-protocol/Bluefin",
+            "supported-protocol/Bucket",
+            "supported-protocol/Cetus",
+            "supported-protocol/DeDust",
+            "supported-protocol/DeepR",
+            "supported-protocol/EVAA",
+            "supported-protocol/Elixir",
+            "supported-protocol/FlowX",
+            "supported-protocol/Hawksight",
+            "supported-protocol/Invariant",
+            "supported-protocol/Iotabee",
+            "supported-protocol/Kamino",
+            "supported-protocol/Kriya",
+            "supported-protocol/Navi",
+            "supported-protocol/Orca",
+            "supported-protocol/QuickswapV3",
+            "supported-protocol/Raydium",
+            "supported-protocol/STONfi",
+            "supported-protocol/Scallop",
+            "supported-protocol/ShimmerSea",
+            "supported-protocol/StormTrade",
+            "supported-protocol/SuiDex",
+            "supported-protocol/SuiSwap",
+            "supported-protocol/Swapline",
+            "supported-protocol/TangleSwap",
+            "supported-protocol/TurbosFinance",
+            "supported-protocol/Typus",
+            "supported-protocol/UniswapV2",
+            "supported-protocol/UniswapV3",
+            "supported-protocol/Velodrome",
+            "supported-protocol/Vfat"
+          ]
+        }
       ]
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
+      "pages": ["api-reference/introduction"]
     }
   ],
   "footerSocials": {
