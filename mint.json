@@ -48,6 +48,19 @@
                 "supported-protocol/Orca"
               ]
             },
+            {
+              "group": "Sui",
+              "pages": [
+                "supported-protocol/SuiDex",
+                "supported-protocol/SuiSwap",
+                "supported-protocol/Swapline",
+                "supported-protocol/Suilend",
+                "supported-protocol/SuiNativeStaking",
+                "supported-protocol/SuiNS",
+                "supported-protocol/Kriya",
+                "supported-protocol/Scallop"
+              ]
+            },
             "supported-protocol/Aerodrome",
             "supported-protocol/AftermathFinance",
             "supported-protocol/AlphaFi",
@@ -64,21 +77,16 @@
             
             "supported-protocol/Iotabee",
             "supported-protocol/Kamino",
-            "supported-protocol/Kriya",
+            
             "supported-protocol/Navi",
             
             "supported-protocol/QuickswapV3",
             "supported-protocol/Raydium",
             "supported-protocol/STONfi",
-            "supported-protocol/Scallop",
+            
             "supported-protocol/ShimmerSea",
             "supported-protocol/StormTrade",
-            "supported-protocol/SuiDex",
-            "supported-protocol/SuiSwap",
-            "supported-protocol/Swapline",
-            "supported-protocol/Suilend",
-            "supported-protocol/SuiNativeStaking",
-            "supported-protocol/SuiNS",
+            
             "supported-protocol/TangleSwap",
             "supported-protocol/TurbosFinance",
             "supported-protocol/Typus",
