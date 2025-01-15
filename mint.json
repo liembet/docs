@@ -42,13 +42,6 @@
           "group": "Supported Protocol",
           "pages": [
             {
-              "group": "Eclipse",
-              "pages": [
-                "supported-protocol/Invariant",
-                "supported-protocol/Orca"
-              ]
-            },
-            {
               "group": "Sui",
               "pages": [
                 "supported-protocol/SuiDex",
@@ -79,6 +72,13 @@
                 "supported-protocol/Hawksight",
                 "supported-protocol/Kamino",
                 "supported-protocol/Raydium"
+              ]
+            },
+            {
+              "group": "Eclipse",
+              "pages": [
+                "supported-protocol/Invariant",
+                "supported-protocol/Orca"
               ]
             },
             {
