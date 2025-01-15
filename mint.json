@@ -41,6 +41,13 @@
         {
           "group": "Supported Protocol",
           "pages": [
+            {
+              "group": "Eclipse",
+              "pages": [
+                "supported-protocol/Invariant",
+                "supported-protocol/Orca"
+              ]
+            },
             "supported-protocol/Aerodrome",
             "supported-protocol/AftermathFinance",
             "supported-protocol/AlphaFi",
@@ -54,12 +61,12 @@
             "supported-protocol/Elixir",
             "supported-protocol/FlowX",
             "supported-protocol/Hawksight",
-            "supported-protocol/Invariant",
+            
             "supported-protocol/Iotabee",
             "supported-protocol/Kamino",
             "supported-protocol/Kriya",
             "supported-protocol/Navi",
-            "supported-protocol/Orca",
+            
             "supported-protocol/QuickswapV3",
             "supported-protocol/Raydium",
             "supported-protocol/STONfi",
