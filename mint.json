@@ -41,76 +41,44 @@
         {
           "group": "Supported Protocol",
           "pages": [
-            {
-              "group": "Sui",
-              "pages": [
-                "supported-protocol/SuiDex",
-                "supported-protocol/SuiSwap",
-                "supported-protocol/Swapline",
-                "supported-protocol/Suilend",
-                "supported-protocol/SuiNativeStaking",
-                "supported-protocol/SuiNS",
-                "supported-protocol/Kriya",
-                "supported-protocol/Scallop",
-                "supported-protocol/AftermathFinance",
-                "supported-protocol/AlphaFi",
-                "supported-protocol/BlueMove",
-                "supported-protocol/Bluefin",
-                "supported-protocol/Bucket",
-                "supported-protocol/Cetus",
-                "supported-protocol/Elixir",
-                "supported-protocol/FlowX",
-                "supported-protocol/Navi",
-                "supported-protocol/TurbosFinance",
-                "supported-protocol/Typus"
-              ]
-            },
-            {
-              "group": "Solana",
-              "pages": [
-                "supported-protocol/Orca",
-                "supported-protocol/Hawksight",
-                "supported-protocol/Kamino",
-                "supported-protocol/Raydium"
-              ]
-            },
-            {
-              "group": "Eclipse",
-              "pages": [
-                "supported-protocol/Invariant",
-                "supported-protocol/Orca"
-              ]
-            },
-            {
-              "group": "Ton",
-              "pages": [
-                "supported-protocol/DeDust",
-                "supported-protocol/EVAA",
-                "supported-protocol/StormTrade",
-                
-                "supported-protocol/STONfi"
-              ]
-            },
-            {
-              "group": "EVM",
-              "pages": [
-                "supported-protocol/Aerodrome",
-                "supported-protocol/UniswapV2",
-                "supported-protocol/UniswapV3",
-                "supported-protocol/Velodrome",
-                "supported-protocol/Vfat",
-                "supported-protocol/QuickswapV3"
-              ]
-            },
-            {
-              "group": "Shimmer",
-              "pages": [
-                "supported-protocol/DeepR",
-                "supported-protocol/Iotabee",
-                "supported-protocol/ShimmerSea",
-                "supported-protocol/TangleSwap"
-              ]
-            }
+            "supported-protocol/Aerodrome",
+            "supported-protocol/AftermathFinance",
+            "supported-protocol/AlphaFi",
+            "supported-protocol/BlueMove",
+            "supported-protocol/Bluefin",
+            "supported-protocol/Bucket",
+            "supported-protocol/Cetus",
+            "supported-protocol/DeDust",
+            "supported-protocol/DeepR",
+            "supported-protocol/EVAA",
+            "supported-protocol/Elixir",
+            "supported-protocol/FlowX",
+            "supported-protocol/Hawksight",
+            "supported-protocol/Invariant",
+            "supported-protocol/Iotabee",
+            "supported-protocol/Kamino",
+            "supported-protocol/Kriya",
+            "supported-protocol/Navi",
+            "supported-protocol/Orca",
+            "supported-protocol/QuickswapV3",
+            "supported-protocol/Raydium",
+            "supported-protocol/STONfi",
+            "supported-protocol/Scallop",
+            "supported-protocol/ShimmerSea",
+            "supported-protocol/StormTrade",
+            "supported-protocol/SuiDex",
+            "supported-protocol/SuiSwap",
+            "supported-protocol/Swapline",
+            "supported-protocol/Suilend",
+            "supported-protocol/SuiNativeStaking",
+            "supported-protocol/SuiNS",
+            "supported-protocol/TangleSwap",
+            "supported-protocol/TurbosFinance",
+            "supported-protocol/Typus",
+            "supported-protocol/UniswapV2",
+            "supported-protocol/UniswapV3",
+            "supported-protocol/Velodrome",
+            "supported-protocol/Vfat"
           ]
         }
       ]
