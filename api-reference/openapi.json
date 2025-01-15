@@ -172,6 +172,7 @@ components:
           example: Nimbus
         logo:
           type: string
+          nullable: true
           example: https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI
     TokenPosition:
       type: object
@@ -229,6 +230,7 @@ components:
                 example: 0x7016aae72cfc67f2fadf55769c0a7dd54291a583b63051a5ed71081cce836ac6::sca::SCA
               logo:
                 type: string
+                nullable: true
                 example: https://token-logo.service.getnimbus.io/api/v1/logo?address=0x7016...&chain=SUI
               token_name:
                 type: string
@@ -810,6 +812,7 @@ components:
                     type: string
                   logo:
                     type: string
+                    nullable: true
               description: The list of reward tokens
         farmLink:
           type: string
@@ -819,6 +822,7 @@ components:
             type: string
         logo:
           type: string
+          nullable: true
         stats:
           type: object
           properties:
@@ -1057,6 +1061,7 @@ paths:
                           example: SUIRWD.IO
                         logo:
                           type: string
+                          nullable: true
                           description: URL to token logo
                           example: https://suicamp.b-cdn.net/suireward/suirwd_icon.png
                         amount:
@@ -1221,6 +1226,7 @@ paths:
                           example: SUIRWD.IO
                         logo:
                           type: string
+                          nullable: true
                           description: URL to token logo
                           example: https://suicamp.b-cdn.net/suireward/suirwd_icon.png
                         amount:
@@ -1310,8 +1316,8 @@ paths:
           description: Internal server error
   /v2/address/{address}/positions-prepare:
     get:
-      summary: Prepare positions for an address
-      description: Prepares and retrieves position information for a given address across various chains and protocols
+      summary: Prepare DEFI positions for an address
+      description: Prepares and retrieves DEFI position information for a given address across various chains and protocols
       tags:
         - Address
       parameters:
@@ -1362,8 +1368,8 @@ paths:
           description: Internal server error
   /v2/address/{address}/positions:
     get:
-      summary: Get positions for an address
-      description: Retrieves position information for a given address across various chains and protocols
+      summary: Get DEFI positions for an address
+      description: Retrieves DEFI position information for a given address across various chains and protocols
       tags:
         - Address
       parameters:
@@ -1374,6 +1380,11 @@ paths:
             type: string
           example: '0x692853c81afc8f847147c8a8b4368dc894697fc12b929ef3071482d27339815e'
           description: The address to get positions for
+        - in: query
+          name: chain
+          schema:
+            type: string
+          description: The blockchain to query
         - in: query
           name: protocol
           schema:
@@ -2256,6 +2267,7 @@ paths:
                             example: 9
                           logo:
                             type: string
+                            nullable: true
                             example: https://token-logo.service.com/sui.png
                       data:
                         type: array
