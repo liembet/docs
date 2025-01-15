@@ -72,38 +72,59 @@
                 "supported-protocol/Typus"
               ]
             },
-            "supported-protocol/Aerodrome",
+            {
+              "group": "Solana",
+              "pages": [
+                "supported-protocol/Orca",
+                "supported-protocol/Hawksight",
+                "supported-protocol/Kamino",
+                "supported-protocol/Raydium"
+              ]
+            },
+            {
+              "group": "Ton",
+              "pages": [
+                "supported-protocol/DeDust",
+                "supported-protocol/EVAA",
+                "supported-protocol/StormTrade",
+                
+                "supported-protocol/STONfi"
+              ]
+            },
+            {
+              "group": "EVM",
+              "pages": [
+                "supported-protocol/Aerodrome",
+                "supported-protocol/UniswapV2",
+                "supported-protocol/UniswapV3",
+                "supported-protocol/Velodrome",
+                "supported-protocol/Vfat",
+                "supported-protocol/QuickswapV3"
+              ]
+            },
             
             
             
             
             
             
-            "supported-protocol/DeDust",
+            
             "supported-protocol/DeepR",
-            "supported-protocol/EVAA",
             
             
-            "supported-protocol/Hawksight",
             
             "supported-protocol/Iotabee",
-            "supported-protocol/Kamino",
             
             
-            "supported-protocol/QuickswapV3",
-            "supported-protocol/Raydium",
-            "supported-protocol/STONfi",
+            
+            
             
             "supported-protocol/ShimmerSea",
-            "supported-protocol/StormTrade",
             
-            "supported-protocol/TangleSwap",
+            "supported-protocol/TangleSwap"
             
             
-            "supported-protocol/UniswapV2",
-            "supported-protocol/UniswapV3",
-            "supported-protocol/Velodrome",
-            "supported-protocol/Vfat"
+            
           ]
         }
       ]
