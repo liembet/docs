@@ -102,29 +102,15 @@
                 "supported-protocol/QuickswapV3"
               ]
             },
-            
-            
-            
-            
-            
-            
-            
-            "supported-protocol/DeepR",
-            
-            
-            
-            "supported-protocol/Iotabee",
-            
-            
-            
-            
-            
-            "supported-protocol/ShimmerSea",
-            
-            "supported-protocol/TangleSwap"
-            
-            
-            
+            {
+              "group": "Shimmer",
+              "pages": [
+                "supported-protocol/DeepR",
+                "supported-protocol/Iotabee",
+                "supported-protocol/ShimmerSea",
+                "supported-protocol/TangleSwap"
+              ]
+            }
           ]
         }
       ]
